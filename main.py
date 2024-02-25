@@ -108,9 +108,7 @@ for i in range(1, n):
         print("Pl(", result_new[i], ") = 1", end="")
         for j in range(1, n):
             list2 = result_new[j]
-            if check_intersection(list1, list2):
-                privet = 0  # Заглушка
-            else:
+            if not check_intersection(list1, list2):
                 print(" -", mass[j], end="")
                 pl[i] -= mass[j]
         pl = [round(num, 7) for num in pl]

@@ -110,11 +110,11 @@ for i in range(1,n) :
         for j in range(1,n):
             list2=result_new[j]
             if check_intersection(list1, list2):
-                privet=0
+                privet=0  #Заглушка
             else:
                 print(" -",mass[j],end="")
                 pl[i]-=mass[j]
-        pl = [round(num, 7) for num in bell]
+        pl = [round(num, 7) for num in pl]
         print(" = ",pl[i])
 
 #Проверка условия mass[A]<=Bel(A)<=Pl(A)

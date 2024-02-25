@@ -71,11 +71,11 @@ for i in range(1, n):
         if mass[i] != 0.0:
             if result[i][1] == ' ':
                 bell[i] = mass[i]
-                print("Bell(", result[i], ") = ", bell[i])
+                print("Bell(", result[i], ") = M",result[i], bell[i])
                 break
             else:
 
-                print("Bell(", result[i], ") = ", mass[i], end='')
+                print("Bell(", result[i], ") = M",result[i], mass[i], end='')
                 bell[i] += mass[i]
 
                 for watch in range(0, len(arr)):
@@ -84,7 +84,7 @@ for i in range(1, n):
                     for y in range(1, n):
                         if result[y][0] == position and result[y][1] == " ":
                             bell[i] += mass[y]
-                            print(" + ", mass[y], end='')
+                            print(" + M",result[y] ,mass[y], end='')
                 bell = [round(num, 3) for num in bell]
                 print(" = ", bell[i])
                 break
@@ -109,7 +109,7 @@ for i in range(1, n):
         for j in range(1, n):
             list2 = result_new[j]
             if not check_intersection(list1, list2):
-                print(" -", mass[j], end="")
+                print(" - M",result_new[j] ,mass[j], end="")
                 pl[i] -= mass[j]
         pl = [round(num, 7) for num in pl]
         print(" = ", pl[i])

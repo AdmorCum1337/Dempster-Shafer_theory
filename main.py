@@ -2,7 +2,7 @@ from itertools import combinations  # комбинаторика
 import sys  # выход по ошибке
 from tabulate import tabulate
 
-arr = ["avto", "zd", "mt"]  # массив первичных гипотез (переделать в ввод с клавиатуры)
+arr = ["avto", "zd", "mt"]  # массив первичных гипотез (переделать в ввод с клавиатуры) тестовые значения
 
 mass = [0.00] * pow(2, len(arr))  # массив базовых вероятностей/масс гипотез
 
@@ -24,10 +24,10 @@ def combinations_matrix_with_spaces(arr):
         combinations_matrix_with_spaces.append(filled_combination)
     return combinations_matrix_with_spaces
 
-def check_intersection(list1, list2):
 
-    set1=list1
-    set2=list2
+def check_intersection(list1, list2):
+    set1 = list1
+    set2 = list2
     if set1 & set2:
         return True
     else:
@@ -91,35 +91,34 @@ for i in range(1, n):
 
 # Переделываем list внутри listа в set для расчётов Pl() (в итоге получеим лист сэтов)
 result_new = [""] * len(result)
-result_new[0]=result[0]
+result_new[0] = result[0]
 for i in range(1, len(result)):
     buffer = set(result[i])
     buffer.discard(" ")
     result_new[i] = buffer
 
-
 # Рассчёт Pl()
 pl = [0.00] * pow(2, len(arr))  # массив значений функции доверия
 
-for i in range(1,n) :
+for i in range(1, n):
     pl[i] = 1.00
-    if mass[i]!=0.0:
-        list1=result_new[i] # Запоминаем гипотезу А с которой будет искать "что угодно, но не А"
+    if mass[i] != 0.0:
+        list1 = result_new[i]  # Запоминаем гипотезу А с которой будет искать "что угодно, но не А"
 
-        print("Pl(",result_new[i],") = 1",end="")
-        for j in range(1,n):
-            list2=result_new[j]
+        print("Pl(", result_new[i], ") = 1", end="")
+        for j in range(1, n):
+            list2 = result_new[j]
             if check_intersection(list1, list2):
-                privet=0  #Заглушка
+                privet = 0  # Заглушка
             else:
-                print(" -",mass[j],end="")
-                pl[i]-=mass[j]
+                print(" -", mass[j], end="")
+                pl[i] -= mass[j]
         pl = [round(num, 7) for num in pl]
-        print(" = ",pl[i])
+        print(" = ", pl[i])
 
-#Проверка условия mass[A]<=Bel(A)<=Pl(A)
+# Проверка условия mass[A]<=Bel(A)<=Pl(A)
 
-#Вывод результатов
+# Вывод результатов
 print("Итоговые результаты (гипотеза, базовая вероятность, доверие, правдоподобие):")
 
 table_data = [

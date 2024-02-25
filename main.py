@@ -117,7 +117,11 @@ for i in range(1, n):
         print(" = ", pl[i])
 
 # Проверка условия mass[A]<=Bel(A)<=Pl(A)
-
+for i in range(0, n):
+    if not mass[i] <= bell[i] <= pl[i]:
+        print("Ошибка!!! mass[A]<=Bel(A)<=Pl(A)")
+        print(result_new[i], " - ", mass[i], bell[i], pl[i])
+        sys.exit(2)  # Выход из программы
 # Вывод результатов
 print("Итоговые результаты (гипотеза, базовая вероятность, доверие, правдоподобие):")
 

@@ -2,9 +2,8 @@ from itertools import combinations  # комбинаторика
 import sys  # выход по ошибке
 from tabulate import tabulate
 
-arr = ["avto", "zd", "mt"]  # массив первичных гипотез (переделать в ввод с клавиатуры) тестовые значения
 
-mass = [0.00] * pow(2, len(arr))  # массив базовых вероятностей/масс гипотез
+# arr = ["avto", "zd", "mt"]  # массив первичных гипотез (переделать в ввод с клавиатуры) тестовые значения
 
 
 def combinations_to_matrix(arr):
@@ -34,21 +33,32 @@ def check_intersection(list1, list2):
         return False
 
 
+arr = []
+
+# Заполняем массив, пока не будет введен символ "/"
+while True:
+    element = input("Введите гипотезу (для завершения введите '/'): ")
+    if element == '/':
+        break  # выходим из цикла, если введен символ "/"
+    else:
+        arr.append(element)
+
+mass = [0.00] * pow(2, len(arr))  # массив базовых вероятностей/масс гипотез
+
 result = combinations_matrix_with_spaces(arr)
 
 result.insert(0, "zero")  # нулевое событие
 
 n = pow(2, len(arr))  # количесво всех комбинаций первичных гипотез
 
-# #ввод масс
-# print("Введите базовую вероятность/массу для гипотез:")
-# for i in range(1, n):
-#     print(result[i], ' = ')
-#     element = float(input())  # запросите пользователя ввести элементы массива
-#     mass[i] = element  # добавьте элемент в массив
+# ввод масс
+print("Введите базовую вероятность/массу для гипотез:")
+for i in range(1, n):
+    print(result[i], ' = ')
+    element = float(input())  # запросите пользователя ввести элементы массива
+    mass[i] = element  # добавьте элемент в массив
 
-
-mass = [0.0, 0.3, 0.2, 0.1, 0.4, 0.0, 0.0, 0.0]  # тестовые значений
+# mass = [0.0, 0.3, 0.2, 0.1, 0.4, 0.0, 0.0, 0.0]  # тестовые значений
 
 # Проверка "Сумма базовых вероятностей/масс для всех подмножеств равна 1"
 summ = 0.00
@@ -71,11 +81,11 @@ for i in range(1, n):
         if mass[i] != 0.0:
             if result[i][1] == ' ':
                 bell[i] = mass[i]
-                print("Bell(", result[i], ") = M",result[i], bell[i])
+                print("Bell(", result[i], ") = M", result[i], bell[i])
                 break
             else:
 
-                print("Bell(", result[i], ") = M",result[i], mass[i], end='')
+                print("Bell(", result[i], ") = M", result[i], mass[i], end='')
                 bell[i] += mass[i]
 
                 for watch in range(0, len(arr)):
@@ -84,7 +94,7 @@ for i in range(1, n):
                     for y in range(1, n):
                         if result[y][0] == position and result[y][1] == " ":
                             bell[i] += mass[y]
-                            print(" + M",result[y] ,mass[y], end='')
+                            print(" + M", result[y], mass[y], end='')
                 bell = [round(num, 3) for num in bell]
                 print(" = ", bell[i])
                 break
@@ -109,7 +119,7 @@ for i in range(1, n):
         for j in range(1, n):
             list2 = result_new[j]
             if not check_intersection(list1, list2):
-                print(" - M",result_new[j] ,mass[j], end="")
+                print(" - M", result_new[j], mass[j], end="")
                 pl[i] -= mass[j]
         pl = [round(num, 7) for num in pl]
         print(" = ", pl[i])
@@ -132,3 +142,7 @@ table_data = [
 
 # Вывод таблицы
 print(tabulate(table_data, tablefmt="fancy_grid"))
+
+with open('output.txt', 'w') as f:
+    # Записываем таблицу в файл
+    f.write(tabulate(table_data, tablefmt="fancy_grid"))
